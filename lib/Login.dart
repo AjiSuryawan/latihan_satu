@@ -10,10 +10,23 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  Widget myText(String label, bool isObsecure){
+  String usernameText = "ini username";
+  late TextEditingController ctrUsername;
+  late TextEditingController ctrPassword;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ctrUsername = new TextEditingController();
+    ctrPassword = new TextEditingController();
+  }
+
+  Widget myText(String label, bool isObsecure , TextEditingController myController){
     return Container(
       margin: EdgeInsets.all(10),
       child: TextField(
+        controller: myController,
         obscureText: isObsecure,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -32,21 +45,21 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: Column(
           children: [
-            myText("username" , false),
-            myText("password" , true),
+            myText("username" , false ,  ctrUsername!),
+            myText("password" , true , ctrPassword!),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+                  print(ctrUsername.text.toString());
+                  // string to double
+                  // set state hasil luas
                 }, child: Text('Login')),
                 ElevatedButton(onPressed: () {}, child: Text('Register',
                   style: TextStyle(color: Colors.black),),)
               ],
             ),
+            Text(usernameText),
           ],
         ),
       ),
